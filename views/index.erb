@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+    <html>
+       <head>
+           <meta charset="utf-8" />
+           <title>カレンダー</title>
+       </head>
+  
+       <body>
+           <table border>
+               <caption><%= "      "+ @y+ "年"+ @m+ "月" %></caption>
+
+               <!-- 曜日の表示 -->
+               <tr>
+                   <th><%= "日" %></th>
+                   <th><%= "月" %></th>
+                   <th><%= "火" %></th>
+                   <th><%= "水" %></th>
+                   <th><%= "木" %></th>
+                   <th><%= "金" %></th>
+                   <th><%= "土" %></th>
+               </tr>
+
+               <% @calday.each do |a| %>
+                   <tr>
+                       <% a.each do |b| %>
+                           <td><%= b %>
+                       <% end %>
+                   </tr>
+               <% end %>
+           </table>
+     </body>
+   </html>
