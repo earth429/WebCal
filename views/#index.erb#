@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+    <html>
+       <head>
+           <meta charset="utf-8"/>
+           <title>カレンダー</title>
+       </head>
+  
+       <body>
+           <p><a href="/<%= @last_month_year %>/<%= @last_month %>">先月</a> 
+           <a href="/<%= @this_month_year %>/<%= @this_month %>">今月</a>
+           <a href="/<%= @next_month_year %>/<%= @next_month %>">来月</a>
+
+           松澤君の誕生月→<a href="/<%= @mybirthyear %>/<%= @mybirthmonth %>">ここ</a></p>
+           <table border>
+               <caption><%= "      "+ @y + "年"+ @m + "月" %></caption>
+               <!-- 曜日の表示 -->
+               <tr>
+                   <th><%= "日" %></th>
+                   <th><%= "月" %></th>
+                   <th><%= "火" %></th>
+                   <th><%= "水" %></th>
+                   <th><%= "木" %></th>
+                   <th><%= "金" %></th>
+                   <th><%= "土" %></th>
+               </tr>
+
+
+               <% for i in 0..@calday.size - 1 do %>
+                   <tr>
+                       <% for j in 0..6 do %>
+                           <% if j == 0 %>
+                               <td><font color="blue"><%= b %></font></td>
+                           <% elsif j == 6 %>
+                               <td><font color="red"><%= b %></font><td>
+                           <% else %>
+                               <td><%= b %></td>
+                           <% end %>
+                       <% end %>
+                   </tr>
+               <% end %>
+
+
+               <% @calday.each do |a| %>
+                   <tr>
+                       <% a.each do |b| %>
+                           <% if b % 7 == 6 %>
+                              <td><font color="blue"><%= b %></font><                          <% elsif b % 7 == 0 %>
+                              <td><font color="red"><%= b %></font></td>
+                          <% else %>
+                              <td><%= b %></td>
+                          <% end %>
+                       <% end %>
+                   </tr>
+               <% end %>
+           </table>
+     </body>
+   </html>

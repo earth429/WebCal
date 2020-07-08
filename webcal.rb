@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'date'
 
 set :environment, :production
 
@@ -41,6 +42,28 @@ get '/:year/:month' do
     @y = params[:year]
     @m = params[:month]  
     cal = CalCal.new() # メソッド使うためのインスタンス
+    d = Date.today # Dateメソッドを使う
+    @mybirth = Date.new(2001, 8, 20)
+    @born = d - @mybirth
+    year = @y.to_i
+    month = @m.to_i
+    @today = d.day
+    @last_month_year = year
+    @last_month = month - 1
+    @this_month_year = d.year
+    @this_month = d.month
+    @next_month_year = year
+    @next_month = month + 1
+    @mybirthyear = @mybirth.year
+    @mybirthmonth = @mybirth.month
+    
+    if @last_month == 0
+        @last_month_year -= 1
+        @last_month = 12
+    elsif @next_month == 13
+        @next_month_year += 1
+        @next_month = 1
+    end
 
     print "      ", @y, "年", @m, "月\n" # このとき表示で変数を使うので以下.to_i必要
     days = cal.MonthOfDays(@m.to_i) # その月が何日あるか
@@ -95,6 +118,7 @@ get '/:year/:month' do
         cnt += 1
     end
     puts "\n"
-  
+    
+    @dayday = youbi
     erb :index
 end # getのend

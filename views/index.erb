@@ -1,14 +1,20 @@
 <!DOCTYPE html>
     <html>
        <head>
-           <meta charset="utf-8" />
+           <meta charset="utf-8"/>
            <title>カレンダー</title>
        </head>
   
        <body>
-           <table border>
-               <caption><%= "      "+ @y+ "年"+ @m+ "月" %></caption>
+           <h1><center>☆松澤くんのカレンダー☆</center></h1>
+           <p><center>松澤くんの誕生月→<a href="/<%= @mybirthyear.to_i %>/<%= @mybirthmonth %>">ここ</a>
+           (ちなみに生まれてから<%= @born %>日経ちました)</center></p>
 
+           <p><center><a href="/<%= @last_month_year %>/<%= @last_month %>">先月</a> 
+           <a href="/<%= @this_month_year %>/<%= @this_month %>">今月</a>
+           <a href="/<%= @next_month_year %>/<%= @next_month %>">来月</a></center></p>
+           <table border="1" align="center">
+               <caption><%= "      "+ @y + "年"+ @m + "月" %></caption>
                <!-- 曜日の表示 -->
                <tr>
                    <th><%= "日" %></th>
@@ -20,13 +26,32 @@
                    <th><%= "土" %></th>
                </tr>
 
-               <% @calday.each do |a| %>
+               <% for i in 0..@calday.size - 1 do %>
                    <tr>
-                       <% a.each do |b| %>
-                           <td><%= b %>
+                       <% for j in 0..6 do %>
+                           <% if j == 0 %>
+                               <!-- 日曜は数字を赤く -->
+                               <td><font color="red"><%= @calday[i][j] %></font></td>
+                           <% elsif j == 6 %>
+                               <!-- 土曜は数字を青く -->
+                               <td><font color="blue"><%= @calday[i][j] %></font></td>
+                           <% elsif @this_month_year.to_i == @y.to_i and 
+                               @this_month.to_i == @m.to_i and
+                               @today == @calday[i][j] %>
+                               <!-- 今日のセルに色付け  -->
+                               <td bgcolor="silver"><%= @calday[i][j] %></td>
+                           <% elsif @mybirth.year == @y.to_i and
+                               @mybirth.month == @m.to_i and
+                               @mybirth.day == @calday[i][j] %>
+                               <!-- 誕生日はバースデイカラー(蜜柑色) -->
+                               <td bgcolor="#f08300"><%= @calday[i][j] %></td>
+                           <% else %>
+                               <td><%= @calday[i][j] %></td>
+                           <% end %>
                        <% end %>
                    </tr>
                <% end %>
            </table>
+           <p><center><font size="1"><strike>高性能カレンダーは<a href="https://calendar.google.com/calendar">こちら</a></strike></font></center></p>
      </body>
    </html>
