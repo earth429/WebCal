@@ -30,6 +30,7 @@ class CalCal
         when 10 then return 31
         when 11 then return 30
         when 12 then return 31
+        else return 31
         end
     end
 
@@ -38,9 +39,18 @@ class CalCal
     end
 end
 
+get '/' do
+    @error = 1
+    erb :index
+end
+
 get '/:year/:month' do
     @y = params[:year]
     @m = params[:month]  
+    @error = 0
+    if @m.to_i > 12 or @m.to_i <= 0 or @y.to_i <= 0
+        @error = 1
+    end
     cal = CalCal.new() # メソッド使うためのインスタンス
     d = Date.today # Dateメソッドを使う
     @mybirth = Date.new(2001, 8, 20)
@@ -77,8 +87,6 @@ get '/:year/:month' do
 
     # 初日の曜日を求める(0=日,6=土)
     if @m.to_i == 1
-        youbi = cal.Zeller(@y.to_i - 1, 13, 1)
-    elsif @m.to_i == 2
         youbi = cal.Zeller(@y.to_i - 1, 14, 1)
     else
         youbi = cal.Zeller(@y.to_i, @m.to_i, 1)

@@ -6,6 +6,9 @@
        </head>
   
        <body>
+           <% if @error != 0 %>
+               <p>ナイヨー(:9998/2020/7など存在する年月を入れてね)</p>
+           <% else %>
            <h1><center>☆松澤くんのカレンダー☆</center></h1>
            <p><center>松澤くんの誕生月→<a href="/<%= @mybirthyear.to_i %>/<%= @mybirthmonth %>">ここ</a>
            (ちなみに生まれてから<%= @born %>日経ちました)</center></p>
@@ -53,5 +56,6 @@
                <% end %>
            </table>
            <p><center><font size="1"><strike>高性能カレンダーは<a href="https://calendar.google.com/calendar">こちら</a></strike></font></center></p>
+       <% end %>
      </body>
    </html>
